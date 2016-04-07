@@ -15,7 +15,7 @@ BIN_PATH = %(APP_ROOT)s/bin
 OUT_PATH = %(APP_ROOT)s
 
 [mystem]
-MYSTEM_PATH = %(BIN_PATH)s/mystem_ruscorpora
+MYSTEM_PATH = %(BIN_PATH)s/mystem
 
 [malt]
 MALT_ROOT = %(BIN_PATH)s/maltparser-1.8.1
@@ -27,7 +27,7 @@ COMP_DICT_PATH = %(APP_ROOT)s/static/dictionaries/composites.csv
 
 [treetagger]
 TREETAGGER_BIN = %(BIN_PATH)s/treetagger/bin/tree-tagger
-TREETAGGER_PAR = %(BIN_PATH)s/treetagger/lib/tree_alltags_model.par
+TREETAGGER_PAR = %(APP_ROOT)s/tree_alltags_model.par
 ```
 
 ## Usage
