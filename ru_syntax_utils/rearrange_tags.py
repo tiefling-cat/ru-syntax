@@ -5,6 +5,7 @@ FeatMatch = namedtuple('FeatMatch', ['regex', 'default'])
 
 gender = FeatMatch(re.compile(r'\b[mfn]\b'), '-')
 number = FeatMatch(re.compile(r'\b(sg|pl)\b'), '-')
+casenum = FeatMatch(re.compile(r'\b(nom|gen|dat|acc|ins|loc|part|abl|voc) (sg|pl)\b'), '- -')
 anim = FeatMatch(re.compile(r'\b(inan|anim)\b'), '-')
 case = FeatMatch(re.compile(r'\b(nom|gen|dat|acc|ins|loc|part|loc2|voc)\b'), '-')
 brev = FeatMatch(re.compile(r'\b(brev|plen)\b'), 'plen')

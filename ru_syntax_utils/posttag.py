@@ -19,24 +19,22 @@ def treetagg(sentences, ttfname_i, ttfname_o, tt_bin, tt_par):
 
 def detect_nonflex(token):
     """
-    Detect nonflex case, gender, number for S.
+    Detect nonflex case and/or number for S.
     """
     all_feats = ' '.join(token[3])
-    case, gender, number = False, False, False
-    cases = list(set(rt.case[0].findall(all_feats)))
-    if len(cases) >= 6:
-        case = True
-        genders = rt.gender[0].findall(all_feats)
-        if len(genders) >= len(cases) * 2 and len(list(set(genders))) > 1:
-            gender = True
-            numbers = rt.number[0].findall(all_feats)
-            if len(numbers) >= len(cases) * len(list(set(genders))) * 2 and len(list(set(numbers))) > 1:
-                number = True
-        elif len(genders) == 0:
-            numbers = rt.number[0].findall(all_feats)
-            if len(numbers) >= len(cases) * 2 and len(list(set(numbers))) > 1:
-                number = True
-    return case, gender, number
+    casenums = set(rt.casenum.regex.findall(all_feats))
+    if len(casenums) >= 12:
+        return True, True
+    elif len(casenums) >= 6:
+        numcases = {}
+        for (case, num) in casenums:
+            numcases.setdefault(num, [])
+            numcases[num].append(case)
+        for num in numcases:
+            numcases[num] = set(numcases[num])
+        if any(len(cases) for cases in numcases.values()) >= 6:
+            return True, False
+    return False, False
 
 def tt_correct(sentences, tt_tokens):
     """
@@ -51,14 +49,14 @@ def tt_correct(sentences, tt_tokens):
             if token[2] == 'A' and token[1] in ['ЕГО', 'ЕЕ', 'ИХ']:
                 token = correct_token_shallow(token, 'A', 'A - nonflex nonflex plen nonflex -')
             elif token[2] == 'S' and len(token[3]) >= 6:
-                case, gender, number = detect_nonflex(token)
+                case, number = detect_nonflex(token)
                 token = correct_token_deep(token, pos, feat)
                 feats = token[3].split()
                 if case:
                     feats[3] = 'nonflex'
                 if number:
                     feats[4] = 'nonflex'
-                token = token[:2] + (' '.join(feats), ' '.join(feats))
+                token = token[:3] + (' '.join(feats), ' '.join(feats))
             elif token[2] in ['S', 'A']:
                 token = correct_token_deep(token, pos, feat)
             elif token[2] in ['PART'] and token[1] in ['ЭТО', 'ТО']:
