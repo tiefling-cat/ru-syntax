@@ -2,14 +2,14 @@
 Here is the repository for ru-syntax command line tool.
 
 ## Requirements
-* Python v.3.4+
-* Mystem
-* TreeTagger
-* MaltParser v.1.8.1+
-* our MaltParser model
+* <a href="https://www.python.org/downloads/" target="_blank">Python v.3.4+</a>
+* <a href="https://tech.yandex.ru/mystem/" target="_blank">Mystem</a>
+* <a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/" target="_blank">TreeTagger</a>
+* <a href="http://www.maltparser.org/" target="_blank">MaltParser v.1.8.1+</a>
+* our MaltParser model from <a href="http://web-corpora.net/wsgi3/ru-syntax/downloads target="_blank">ru-syntax website</a>
 
 ## Installation
-In order to get everything up and running, you 
+In order to get everything up and running, you need to clone this repository or just download it as a zip-file and unpack it.
 
 ## Sample config
 ```
@@ -35,7 +35,7 @@ MODEL_NAME = PTM
 
 [dicts]
 # path to composites dictionary file
-COMP_DICT_PATH = %(APP_ROOT)s/static/dictionaries/composites.csv
+COMP_DICT_PATH = %(APP_ROOT)s/dictionaries/composites.csv
 
 [treetagger]
 # path to Treetagger binary file
