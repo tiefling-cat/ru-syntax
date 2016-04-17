@@ -1,5 +1,5 @@
 # ru-syntax
-Here is the repository for ru-syntax command line tool.
+Here is the repository for ru-syntax command line tool, which allows for, ahem, syntactical parsing of Russian texts. You can visit our <a href="http://web-corpora.net/wsgi3/ru-syntax/" target="_blank">web-page</a> to parse some text online and find out more about the pipeline.
 
 ## Requirements
 * <a href="https://www.python.org/downloads/" target="_blank">Python v.3.4+</a>
@@ -9,14 +9,32 @@ Here is the repository for ru-syntax command line tool.
 * our MaltParser model from <a href="http://web-corpora.net/wsgi3/ru-syntax/downloads target="_blank">ru-syntax website</a>
 
 ## Installation
-In order to get everything up and running, you need to clone this repository or just download it as a zip-file and unpack it.
+In order to get everything up and running, you need to make sure you have all the requirements, clone this repository or just download it as a zip-file, and unpack it. After that, you basically have two options.
+
+#### 1. Use sample config and move Mystem, MaltParser and TreeTagger to adjust for it
+1. Create 'config.ini' file in the folder containing ru-syntax.py.
+2. Copy the sample config given below to config.ini.
+3. Replace the path in `APP_ROOT = /home/nm/repos/ru-syntax` line with the full path to the folder containing ru-syntax.py.
+4. Create 'bin' folder in your folder containing ru-syntax.py.
+5. Put Mystem binary, full TreeTagger folder, and full MaltParser folder into that bin folder.
+6. Make sure they are written in config.ini exactly the same as they are named (e.g., option `MYSTEM_PATH = %(BIN_PATH)s/mystem` might need to be replaced by something like `MYSTEM_PATH = %(BIN_PATH)s/mystem-3.0-win7-32bit.exe`).
+7. Put MaltParser model download from <a href="http://web-corpora.net/wsgi3/ru-syntax/downloads target="_blank">ru-syntax website</a> into the same folder as MaltParser jar file.
+
+#### 2. Put Mystem, MaltParser and TreeTagger anywhere you like and tweak the config
+1. Create 'config.ini' file in the folder containing ru-syntax.py.
+2. Copy the sample config given below to config.ini.
+3. Tweak the paths in the config according to where you have your Mystem, TreeTagger, MaltParser, and MaltParser model.
+
+Please note that constructions like `%(SOME_OPTION)s` simply substitute with the contents of `SOME_OPTION.` You don't have to use them but may rather just specify full paths. In order to use such a construction, you have to make sure that `SOME_OPTION` is specified either in `[DEFAULT]` section or in the same section where `%(SOME_OPTION)s` is invoked.
+
+Also note that regardless of how you place MaltParser folder, you have to put the model into exactly the same folder as MaltParser jar file.
 
 ## Sample config
 ```
 [DEFAULT]
 # full path to the folder containing ru-syntax.py
 APP_ROOT = /home/nm/repos/ru-syntax
-# path to the folder containing Mystem, Treetagger and MaltParser
+# path to the folder containing Mystem, TreeTagger and MaltParser
 BIN_PATH = %(APP_ROOT)s/bin
 # path to the folder for output
 OUT_PATH = %(APP_ROOT)s
@@ -38,20 +56,22 @@ MODEL_NAME = PTM
 COMP_DICT_PATH = %(APP_ROOT)s/dictionaries/composites.csv
 
 [treetagger]
-# path to Treetagger binary file
+# path to TreeTagger folder
 TREETAGGER_BIN = %(BIN_PATH)s/treetagger/bin/tree-tagger
 # path to Treetagger model
 TREETAGGER_PAR = %(APP_ROOT)s/tree_alltags_model.par
 ```
 
 ## Usage
-In order to annotate your file, you need to run the wrapper script ru-syntax.py from the command line:
+In order to annotate your file, you need to run the wrapper script `ru-syntax.py` from the command line:
 
 ```
-Usage: ./ru-syntax.py [-o OUTPUT_FILE] INPUT_FILE
+Usage: python3 ru-syntax.py [-o OUTPUT_FILE] INPUT_FILE
 
 Options:
   -h, --help            show this help message and exit
   -o OUTPUT_FILE, --out=OUTPUT_FILE
                         output results to OUTPUT_FILE.
 ```
+
+If `OUTPUT_FILE` is not specified, the output file will have the same name as input file but with conll extension.
