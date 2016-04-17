@@ -47,7 +47,7 @@ def tt_correct(sentences, tt_tokens):
             tt_token = next(tt_tokens)
             pos, feat, glued = parse_gr(tt_token[0], tt_token[1], repl=False)
             if token[2] == 'A' and token[1] in ['ЕГО', 'ЕЕ', 'ИХ']:
-                token = correct_token_shallow(token, 'A', 'A - nonflex nonflex plen nonflex -')
+                token = correct_token_shallow(token, 'A', 'A - nonflex nonflex plen - -')
             elif token[2] == 'S' and len(token[3]) >= 6:
                 case, number = detect_nonflex(token)
                 token = correct_token_deep(token, pos, feat)
