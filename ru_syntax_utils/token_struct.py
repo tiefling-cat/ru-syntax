@@ -62,7 +62,7 @@ def typed_token(text, regexp):
         lemma = text
     else:
         lemma = regexp[1]
-    return tuple((text, lemma.upper(), regexp[2], regexp[2], regexp[3]))
+    return tuple((text, lemma.upper(), regexp[2], regexp[3], regexp[3]))
 
 def num_token(text):
     return tuple((text, text, 'NUM', 'NUM - - -', 'NUM - - -'))
