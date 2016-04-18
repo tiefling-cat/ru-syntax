@@ -47,8 +47,7 @@ def get_comp_dict(comp_dict_path):
     comp_dict = [{}, '']
     for comp_line in comp_list:
         comp = comp_line.split()
-        parts = comp[:-1]
-        tags = comp[-1]
+        parts, tags = comp[:-1], comp[-1]
         curr_dict = comp_dict
         for part in parts:
             if not part in curr_dict[0]:
@@ -61,9 +60,7 @@ def detect_composites(in_list, comp_dict):
     """
     Detect composite tokens.
     """
-    out_list = []
-    curr_dict = comp_dict
-    dump_list = []
+    curr_dict, out_list, dump_list = comp_dict, [], []
     for token in in_list:
         if token[0].lower() in curr_dict[0]:
             dump_list.append(token)
@@ -75,8 +72,7 @@ def detect_composites(in_list, comp_dict):
                     out_list.append(new_tok)
                 else:
                     out_list.extend(dump_list)
-                dump_list = []
-                curr_dict = comp_dict
+                curr_dict, dump_list = comp_dict, []
             out_list.append(token)
     return out_list
 
@@ -118,16 +114,12 @@ def try_types_post(text):
     return [nonlex_token(text)]
 
 def check_templates(parts, templates):
-    check = False
-    for template in templates:
-        check = check or check_template(parts, template)
-    return check
+    return any(check_template(parts, template) 
+                    for template in templates)
 
 def check_template(parts, template):
-    check = True
-    for part, templ_part in zip(parts, template):
-        check = check and part in templ_part
-    return check
+    return all(part in templ_part 
+                    for part, templ_part in zip(parts, template))
 
 def rework(in_list, templates, check_last=False):
     """
@@ -187,7 +179,7 @@ def mystem_postprocess(analyzed, comp_dict):
                     current_sentence.append(parse_analysis(analysis))
                 else: # is it something nonlex?
                     current_sentence.extend(try_types_post(analysis['text']))
-            else: # is it a punctuation?
+            else: # is it punctuation?
                 if analysis['text'].strip() != '': # is it a whitespace?
                     current_sentence.extend(try_types_post(analysis['text'].strip()))
     if current_sentence:
