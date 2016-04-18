@@ -19,6 +19,9 @@ abbr_templates = [
 dot_templates = ['.']
 
 def tokenise_punc(puncline):
+    """
+    Tokenise special cases of punctuation.
+    """
     if len(puncline) == 1:
         punclist = [punc_token(puncline)]
     else:
@@ -36,6 +39,9 @@ def tokenise_punc(puncline):
     return punclist
 
 def get_comp_dict(comp_dict_path):
+    """
+    Load dictionary with composites.
+    """
     with open(comp_dict_path, 'r', encoding='utf-8') as comp_file:
         comp_list = comp_file.readlines()
     comp_dict = [{}, '']
@@ -52,6 +58,9 @@ def get_comp_dict(comp_dict_path):
     return comp_dict
 
 def detect_composites(in_list, comp_dict):
+    """
+    Detect composite tokens.
+    """
     out_list = []
     curr_dict = comp_dict
     dump_list = []
@@ -72,6 +81,9 @@ def detect_composites(in_list, comp_dict):
     return out_list
 
 def glue_special(tokens):
+    """
+    Reconstruct special tokens.
+    """
     for sp_token_template in special_tokens:
         sp_token = ''
         if tokens[0][0] == sp_token_template[1]:
@@ -118,6 +130,9 @@ def check_template(parts, template):
     return check
 
 def rework(in_list, templates, check_last=False):
+    """
+    Rearrange tokens according to templates.
+    """
     out_list = [in_list[0]]
     for token in in_list[1:-1]:
         if check_last:
@@ -131,15 +146,24 @@ def rework(in_list, templates, check_last=False):
     out_list.append(in_list[-1])
     return out_list
 
-def post(lemmatized, comp_dict):
-    glued = lemmatized
+def post(glued, comp_dict):
+    """
+    Reconstruct special cases.
+    """
+    # reconstruct special tokens
     glued = glue_special(glued)
+    # glue dots after abbreviations
     glued = rework(glued, dot_templates)
+    # glue т.е. and the like
     glued = rework(glued, abbr_templates, check_last=True)
+    # reconstruct composites
     glued = detect_composites(glued, comp_dict)
     return glued
 
 def mystem_postprocess(analyzed, comp_dict):
+    """
+    Postprocess mystem output.
+    """
     sentences = []
     current_sentence = []
     for analysis in analyzed:

@@ -18,8 +18,6 @@ percent_re = re.compile('^%$')
 space_re = re.compile('^\s$')
 punc_re = re.compile('^[^A-Za-zА-ЯЁа-яё0-9]+$')
 
-#nonpunc_re = re.compile('^[()""«»]$')
-
 post_mystem = [
         (roman_re, None, 'NUM', 'NUM - - -'),
         (num_re, None, 'NUM', 'NUM - - -'),
@@ -47,6 +45,9 @@ def punc_token(punc):
     return tuple((punc, punc, lemma, lemma, 'PUNC'))
 
 def parse_analysis(analysis):
+    """
+    Parse mystem analysis for one token.
+    """
     lemma = analysis['analysis'][0]['lex'].upper()
     pos, feat, glued = parse_gr(lemma, analysis['analysis'][0]['gr'])
     if pos in ['S', 'A']:
@@ -112,6 +113,9 @@ def feats_include(feats, test):
     return include
 
 def correct_token_deep(token, pos, test_feat):
+    """
+    Correct S and A feats got from mystem with treetagger feats.
+    """
     tok_pos = token[2]
     if tok_pos != pos:
         return token[:2] + tuple((tok_pos, token[3][0], token[3][0])) + token[5:]
@@ -122,10 +126,16 @@ def correct_token_deep(token, pos, test_feat):
             return token[:2] + tuple((pos, feat, feat)) + token[5:]
     return token[:2] + tuple((pos, test_feat, test_feat)) + token[5:]
 
-def correct_token_shallow(token, pos, test_feat):
-    return token[:2] + tuple((pos, test_feat, test_feat)) + token[5:]
+def correct_token_shallow(token, pos, feats):
+    """
+    Correct token with new pos and feats.
+    """
+    return token[:2] + tuple((pos, feats, feats)) + token[5:]
 
 def correct_tags(token, pos, feat):
+    """
+    Obsolete function.
+    """
     feat_list = feat.split(' ')
     feat_list = [repl_tag_dict.get(tag, tag) for tag in feat_list]
     feat = ' '.join(feat_list)

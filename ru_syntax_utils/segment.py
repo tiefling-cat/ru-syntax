@@ -128,7 +128,7 @@ def segment_text(raw_text):
 
 def flush(sentences, ofile):
     """
-    Output sentences to ofile.
+    Output segmented sentences to ofile.
     """
     for sent in sentences:
         for i, token in enumerate(sent):
