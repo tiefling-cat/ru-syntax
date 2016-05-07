@@ -48,34 +48,41 @@ def check_infile(in_fname):
         print('Sorry, file must be plain text encoded in utf-8!')
         sys.exit(1)
 
+def get_path_from_config(config, option, default):
+    if config.has_option('DEFAULT', option):
+        return config['DEFAULT'][option]
+    return os.path.join(config['DEFAULT']['app_root'], default)
+
 if __name__ == '__main__':
+    # read configs and command line options
     config = ConfigParser()
     config.read('config.ini')
     in_fname, out_fname = get_options()
     check_infile(in_fname)
 
-    if '.' in in_fname:
-        fname_clean = os.path.basename(in_fname).rsplit('.', 1)[0]
-    else:
-        fname_clean = os.path.basename(in_fname)
+    fname_clean = os.path.basename(in_fname).rsplit('.', 1)[0]
 
+    # temporary failes and folder
+    tmp_path = get_path_from_config(config, 'tmp_path', 'tmp')
     tmp_fsuffixes = ['_mystem_in.txt', '_mystem_out.txt',
                      '_treetagger_in.txt', '_treetagger_out.txt',
                      '_raw.conll']
-    tmp_fnames = [os.path.join(config['DEFAULT']['tmp_path'], 
-                               fname_clean + fsuffix)
+    tmp_fnames = [os.path.join(tmp_path, fname_clean + fsuffix)
                     for fsuffix in tmp_fsuffixes]
 
-    for path_designation in ['tmp_path', 'out_path']:
-        if not os.path.exists(config['DEFAULT'][path_designation]):
-            os.makedirs(config['DEFAULT'][path_designation])
-
+    # output file and folder
+    out_path = get_path_from_config(config, 'out_path', 'out')
     if out_fname is None:
-        out_fname = os.path.join(config['DEFAULT']['out_path'],
-                                 fname_clean + '.conll')
+        out_fname = os.path.join(out_path, fname_clean + '.conll')
     else:
         out_fname = os.path.join(config['DEFAULT']['out_path'], out_fname)
 
+    # create output and temp folder if needed
+    for path in [tmp_path, out_path]:
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    # rock'n'roll
     process(in_fname, out_fname,
             config['DEFAULT']['app_root'],
             config['mystem']['mystem_path'],
@@ -87,6 +94,6 @@ if __name__ == '__main__':
             config['treetagger']['treetagger_par'],
             *tmp_fnames)
 
+    # remove temp files
     for fname in tmp_fnames:
         os.remove(fname)
-    os.rmdir(config['DEFAULT']['tmp_path'])
