@@ -34,10 +34,12 @@ Also note that regardless of how you place MaltParser folder, you have to put th
 [DEFAULT]
 # full path to the folder containing ru-syntax.py
 APP_ROOT = /home/nm/repos/ru-syntax
-# path to the folder containing Mystem, TreeTagger and MaltParser
+# path to the folder containing Mystem, TreeTagger, and MaltParser
 BIN_PATH = %(APP_ROOT)s/bin
-# path to the folder for output
-OUT_PATH = %(APP_ROOT)s
+# path for output folder
+OUT_PATH = %(APP_ROOT)s/out
+# path for temporary files folder
+TMP_PATH = %(APP_ROOT)s/tmp
 
 [mystem]
 # path to mystem binary

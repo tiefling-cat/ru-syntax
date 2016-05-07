@@ -32,6 +32,9 @@ post_punc = (punc_re, None, 'PUNC', 'PUNC')
 forced_fullstop = tuple(('.', '.', 'SENT', 'SENT', 'SENT'))
 
 def nonlex_token(text):
+    """
+    Used in segmentation for special tokens.
+    """
     return tuple((text, text.upper(), 'NONLEX', 'NONLEX', 'NONLEX'))
 
 def terminal_token(line):
@@ -65,6 +68,9 @@ def typed_token(text, regexp):
     return tuple((text, lemma.upper(), regexp[2], regexp[3], regexp[3]))
 
 def num_token(text):
+    """
+    Used in segmentation for special tokens.
+    """
     return tuple((text, text, 'NUM', 'NUM - - -', 'NUM - - -'))
 
 def comp_token(tok_list, feats):
@@ -134,7 +140,7 @@ def correct_token_shallow(token, pos, feats):
 
 def correct_tags(token, pos, feat):
     """
-    Obsolete function.
+    Obsolete function?
     """
     feat_list = feat.split(' ')
     feat_list = [repl_tag_dict.get(tag, tag) for tag in feat_list]

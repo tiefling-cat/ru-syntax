@@ -62,9 +62,13 @@ if __name__ == '__main__':
     tmp_fsuffixes = ['_mystem_in.txt', '_mystem_out.txt',
                      '_treetagger_in.txt', '_treetagger_out.txt',
                      '_raw.conll']
-    tmp_fnames = [os.path.join(config['DEFAULT']['app_root'], 
+    tmp_fnames = [os.path.join(config['DEFAULT']['tmp_path'], 
                                fname_clean + fsuffix)
                     for fsuffix in tmp_fsuffixes]
+
+    for path_designation in ['tmp_path', 'out_path']:
+        if not os.path.exists(config['DEFAULT'][path_designation]):
+            os.makedirs(config['DEFAULT'][path_designation])
 
     if out_fname is None:
         out_fname = os.path.join(config['DEFAULT']['out_path'],
@@ -85,3 +89,4 @@ if __name__ == '__main__':
 
     for fname in tmp_fnames:
         os.remove(fname)
+    os.rmdir(config['DEFAULT']['tmp_path'])
