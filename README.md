@@ -1,5 +1,7 @@
 # ru-syntax
-Here is the repository for ru-syntax command line tool, which allows for, ahem, syntactical parsing of Russian texts. You can visit our <a href="http://web-corpora.net/wsgi3/ru-syntax/" target="_blank">web-page</a> to parse some text online and find out more about the pipeline.
+Here is the repository for ru-syntax command line tool, which allows for, ahem, syntactic parsing of Russian texts, plain text in, anniotated conll out. You can visit project's <a href="http://web-corpora.net/wsgi3/ru-syntax/" target="_blank">web page</a> to parse some text online and find out more about the pipeline.
+
+The work is done as a side project of Kira Droganova and Nikita Medyankin at Higher School of Economics, Moscow, Faculty of Humanities, master's programme <a href="https://www.hse.ru/en/ma/ling/" target="_blank">Computational Linguistics</a>.
 
 ## Requirements
 * <a href="https://www.python.org/downloads/" target="_blank">Python v.3.4+</a>
