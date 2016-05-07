@@ -55,9 +55,9 @@ if __name__ == '__main__':
     check_infile(in_fname)
 
     if '.' in in_fname:
-        fname_clean = in_fname.rsplit('.', 1)[0]
+        fname_clean = os.path.basename(in_fname).rsplit('.', 1)[0]
     else:
-        fname_clean = in_fname
+        fname_clean = os.path.basename(in_fname)
 
     tmp_fsuffixes = ['_mystem_in.txt', '_mystem_out.txt',
                      '_treetagger_in.txt', '_treetagger_out.txt',
