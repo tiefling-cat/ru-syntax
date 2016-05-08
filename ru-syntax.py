@@ -51,7 +51,7 @@ def check_infile(in_fname):
 def get_path_from_config(config, option, default):
     if config.has_option('DEFAULT', option):
         return config['DEFAULT'][option]
-    return os.path.join(config['DEFAULT']['app_root'], default)
+    return os.path.join(config['DEFAULT']['APP_ROOT'], default)
 
 if __name__ == '__main__':
     # read configs and command line options
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     fname_clean = os.path.basename(in_fname).rsplit('.', 1)[0]
 
     # temporary failes and folder
-    tmp_path = get_path_from_config(config, 'tmp_path', 'tmp')
+    tmp_path = get_path_from_config(config, 'TMP_PATH', 'tmp')
     tmp_fsuffixes = ['_mystem_in.txt', '_mystem_out.txt',
                      '_treetagger_in.txt', '_treetagger_out.txt',
                      '_raw.conll']
@@ -71,11 +71,11 @@ if __name__ == '__main__':
                     for fsuffix in tmp_fsuffixes]
 
     # output file and folder
-    out_path = get_path_from_config(config, 'out_path', 'out')
+    out_path = get_path_from_config(config, 'OUT_PATH', 'out')
     if out_fname is None:
         out_fname = os.path.join(out_path, fname_clean + '.conll')
     else:
-        out_fname = os.path.join(config['DEFAULT']['out_path'], out_fname)
+        out_fname = os.path.join(out_path, out_fname)
 
     # create output and temp folder if needed
     for path in [tmp_path, out_path]:
@@ -84,14 +84,14 @@ if __name__ == '__main__':
 
     # rock'n'roll
     process(in_fname, out_fname,
-            config['DEFAULT']['app_root'],
-            config['mystem']['mystem_path'],
-            config['malt']['malt_root'],
-            config['malt']['malt_name'],
-            config['malt']['model_name'],
-            config['dicts']['comp_dict_path'],
-            config['treetagger']['treetagger_bin'],
-            config['treetagger']['treetagger_par'],
+            config['DEFAULT']['APP_ROOT'],
+            config['mystem']['MYSTEM_PATH'],
+            config['malt']['MALT_ROOT'],
+            config['malt']['MALT_NAME'],
+            config['malt']['MODEL_NAME'],
+            config['dicts']['COMP_DICT_PATH'],
+            config['treetagger']['TREETAGGER_BIN'],
+            config['treetagger']['TREETAGGER_PAR'],
             *tmp_fnames)
 
     # remove temp files
