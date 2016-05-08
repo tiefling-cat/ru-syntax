@@ -54,6 +54,8 @@ def get_path_from_config(config, option, default):
     return os.path.join(config['DEFAULT']['APP_ROOT'], default)
 
 if __name__ == '__main__':
+    os.chdir(os.path.dirname(__file__))
+
     # read configs and command line options
     config = ConfigParser()
     config.read('config.ini')
