@@ -9,7 +9,6 @@ mystem_options = [
         '-d', # use lexical disambiguation
         '-c', # copy input onto output
         '--eng-gr', # grammar tags in English
-        '--language=ru'
     ]
 malt_call_line = 'java -jar {} -c {} -i {} -o {} -m parse'
 
