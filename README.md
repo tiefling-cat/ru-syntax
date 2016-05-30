@@ -8,7 +8,7 @@ The work is done as a side project of Kira Droganova and Nikita Medyankin at Hig
 * <a href="https://tech.yandex.ru/mystem/" target="_blank">Mystem</a>
 * <a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/" target="_blank">TreeTagger</a>
 * <a href="http://www.maltparser.org/" target="_blank">MaltParser v.1.8.1+</a>
-* our MaltParser model from <a href="http://web-corpora.net/wsgi3/ru-syntax/downloads target="_blank">ru-syntax website</a>
+* our MaltParser model from <a href="http://web-corpora.net/wsgi3/ru-syntax/download" target="_blank">ru-syntax website</a>
 
 ## Installation
 In order to get everything up and running, you need to make sure you have all the requirements, clone this repository or just download it as a zip-file, and unpack it. After that, you basically have two options.
@@ -20,7 +20,7 @@ In order to get everything up and running, you need to make sure you have all th
 4. Create 'bin' folder in your folder containing ru-syntax.py.
 5. Put Mystem binary, full TreeTagger folder, and full MaltParser folder into that bin folder.
 6. Make sure they are written in config.ini exactly the same as they are named (e.g., option `MYSTEM_PATH = %(BIN_PATH)s/mystem` might need to be replaced by something like `MYSTEM_PATH = %(BIN_PATH)s/mystem-3.0-win7-32bit.exe`).
-7. Put MaltParser model downloaded from <a href="http://web-corpora.net/wsgi3/ru-syntax/downloads target="_blank">ru-syntax website</a> into the same folder as MaltParser jar file.
+7. Put MaltParser model downloaded from <a href="http://web-corpora.net/wsgi3/ru-syntax/download" target="_blank">ru-syntax website</a> into the same folder as MaltParser jar file.
 
 #### 2. Put Mystem, MaltParser and TreeTagger anywhere you like and tweak the config
 1. Create 'config.ini' file in the folder containing ru-syntax.py.
