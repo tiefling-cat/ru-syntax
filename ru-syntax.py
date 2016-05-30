@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     fname_clean = os.path.basename(in_fname).rsplit('.', 1)[0]
 
-    # temporary failes and folder
+    # temporary files and folder
     tmp_path = get_path_from_config(config, 'TMP_PATH', 'tmp')
     tmp_fsuffixes = ['_mystem_in.txt', '_mystem_out.txt',
                      '_treetagger_in.txt', '_treetagger_out.txt',

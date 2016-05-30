@@ -2,7 +2,9 @@ import re
 from collections import namedtuple
 from ru_syntax_utils.token_struct import nonlex_token, num_token
 
-# regexp to find for sentence end of sentence
+ws_re = re.compile('\s')
+
+# regexp to find for suspected end of sentence
 sent_end_cand_re = re.compile('((([.!?]+)|…)["»)]*\s)|;|(:\s[-—])')
 
 # all regexps to check if candidate for end of sentence should be excluded
@@ -123,7 +125,7 @@ def segment_text(raw_text):
     """
     segmented = []
     for line in raw_text:
-        segmented.extend(segment_line(line))
+        segmented.extend(segment_line(ws_re.sub(' ', line)))
     return ' | '.join(segmented)
 
 def flush(sentences, ofile):
