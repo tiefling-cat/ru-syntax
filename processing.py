@@ -12,6 +12,7 @@ mystem_options = [
     ]
 malt_call_line = 'java -jar {} -c {} -i {} -o {} -m parse'
 
+
 def process(ifname, ofname, app_root, mystem_path, malt_root, malt_name, model_name,
     comp_dict_path, treetagger_bin, treetagger_par,
     mfname_i, mfname_o, ttfname_i, ttfname_o, raw_fname):
@@ -44,7 +45,11 @@ def process(ifname, ofname, app_root, mystem_path, malt_root, malt_name, model_n
 
     # malt
     os.chdir(malt_root)
-    call(shlex.split(malt_call_line.format(malt_name, model_name, raw_fname, ofname)))
+    # if Windows, use it as is; else: comment three lines below this one and uncomment the 52th one
+    line = malt_call_line.format(malt_name, model_name, raw_fname, ofname)
+    print(line)
+    call(line)
+    #call(shlex.split(malt_call_line.format(malt_name, model_name, raw_fname, ofname)))
     os.chdir(app_root)
 
     return 0
