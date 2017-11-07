@@ -415,7 +415,3 @@ class Corpus:
 
 
 # to get the segmentation
-"""t = Text(fname=r'', text_in_string='Ну что, заебал ты меня, ебучий русинтаксис! Давай работай.', path_input=False)
-print(t.process())
-a = t.get_sentence_segmentation()
-print(a)"""
