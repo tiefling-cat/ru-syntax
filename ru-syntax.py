@@ -1,9 +1,11 @@
 #! /usr/bin/python3
 
-import sys, os
+import sys
+import os
 from configparser import ConfigParser
 from optparse import OptionParser
 from processing import process
+
 
 def get_options():
     """
@@ -31,6 +33,7 @@ def get_options():
 
     return args[0], opts.ofname
 
+
 def check_infile(in_fname):
     """
     Sanity checks for input file.
@@ -48,13 +51,15 @@ def check_infile(in_fname):
         print('Sorry, file must be plain text encoded in utf-8!')
         sys.exit(1)
 
+
 def get_path_from_config(config, option, default):
     if config.has_option('DEFAULT', option):
         return config['DEFAULT'][option]
     return os.path.join(config['DEFAULT']['APP_ROOT'], default)
 
+
 if __name__ == '__main__':
-    os.chdir(os.path.dirname(os.path.abspath(__file__)));
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     # read configs and command line options
     config = ConfigParser()

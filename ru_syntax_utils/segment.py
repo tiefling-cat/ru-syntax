@@ -1,3 +1,4 @@
+from ru_syntax_utils import get_tokens_and_sent_segmentation
 import re
 from collections import namedtuple
 from ru_syntax_utils.token_struct import nonlex_token, num_token
@@ -9,7 +10,7 @@ sent_end_cand_re = re.compile('((([.!?]+)|…)["»)]*\s)|;|(:\s[-—])')
 
 # all regexps to check if candidate for end of sentence should be excluded
 
-# decimal dot or 
+# decimal dot or
 decimal_dot_re = re.compile('\d[.:]\d')
 # commas
 post_comma_re = re.compile('[.!?…]["»)]?,')
@@ -89,7 +90,7 @@ def detect_special_tokens(line):
         special_line, prev = '', 0
         # insert tags for each found special token
         for st_match in special_token.regex.finditer(line):
-            special_line = ' '.join([special_line, line[prev:st_match.start()], 
+            special_line = ' '.join([special_line, line[prev:st_match.start()],
                 special_token.start, st_match.group(0), special_token.end, ''])
             prev = st_match.end()
         # append the tail
@@ -119,13 +120,18 @@ def segment_line(line):
 
     return sentences
 
+
 def segment_text(raw_text):
     """
     Segment raw text.
     """
-    segmented = []
+    """segmented =[]
     for line in raw_text:
-        segmented.extend(segment_line(ws_re.sub(' ', line)))
+        segmented.extend(segment_line(ws_re.sub(' ', line)))"""
+    tokenizer = get_tokens_and_sent_segmentation.Text(fname='', text_in_string=raw_text, path_input=False)
+    tokenizer.process()
+    # removing all the punctuation from tokens so as to count number of words in text
+    segmented = [' '.join(sent) for sent in tokenizer.get_sentence_segmentation()]
     return ' | '.join(segmented)
 
 def flush(sentences, ofile):

@@ -20,7 +20,7 @@ def process(ifname, ofname, app_root, mystem_path, malt_root, malt_name, model_n
     Process text file.
     """
     with open(ifname, 'r', encoding='utf-8') as ifile:
-        raw_text = ifile.readlines()
+        raw_text = ifile.read()  # used to be .readlines()
 
     # segmentation
     segmented_text = segment.segment_text(raw_text)
@@ -47,7 +47,7 @@ def process(ifname, ofname, app_root, mystem_path, malt_root, malt_name, model_n
     os.chdir(malt_root)
     # if Windows, use it as is; else: comment three lines below this one and uncomment the 52th one
     line = malt_call_line.format(malt_name, model_name, raw_fname, ofname)
-    print(line)
+    # print(line)
     call(line)
     #call(shlex.split(malt_call_line.format(malt_name, model_name, raw_fname, ofname)))
     os.chdir(app_root)
