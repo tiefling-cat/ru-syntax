@@ -56,10 +56,10 @@ def file_opener(filename):
 
     return contents
 
-abbr_puncts, abbr_names, pref, endings = file_opener('lists/abbr_puncts.txt'), \
-                                         file_opener('lists/abbr.txt'),\
-                                         file_opener('lists/prefixes.txt'),\
-                                         file_opener('lists/endings.txt')
+abbr_puncts, abbr_names, pref, endings = file_opener(r'C:\Users\Mike\PycharmProjects\ru-syntax\ru_syntax_utils\lists\abbr_puncts.txt'), \
+                                         file_opener(r'C:\Users\Mike\PycharmProjects\ru-syntax\ru_syntax_utils\lists\abbr.txt'),\
+                                         file_opener(r'C:\Users\Mike\PycharmProjects\ru-syntax\ru_syntax_utils\lists\prefixes.txt'),\
+                                         file_opener(r'C:\Users\Mike\PycharmProjects\ru-syntax\ru_syntax_utils\lists\endings.txt')
 
 # для сокращений и т.д., и т.п., т.е., 2014 г., в т.ч., какой-л., какой-н.
 

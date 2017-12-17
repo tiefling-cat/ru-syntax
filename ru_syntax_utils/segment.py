@@ -125,14 +125,16 @@ def segment_text(raw_text):
     """
     Segment raw text.
     """
-    """segmented =[]
+    segmented = segment_line(ws_re.sub(' ', raw_text))
+    """segmented = []
     for line in raw_text:
         segmented.extend(segment_line(ws_re.sub(' ', line)))"""
-    tokenizer = get_tokens_and_sent_segmentation.Text(fname='', text_in_string=raw_text, path_input=False)
+    """tokenizer = get_tokens_and_sent_segmentation.Text(fname='', text_in_string=raw_text, path_input=False)
     tokenizer.process()
     # removing all the punctuation from tokens so as to count number of words in text
-    segmented = [' '.join(sent) for sent in tokenizer.get_sentence_segmentation()]
+    segmented = [' '.join(sent) for sent in tokenizer.get_sentence_segmentation()]"""
     return ' | '.join(segmented)
+
 
 def flush(sentences, ofile):
     """

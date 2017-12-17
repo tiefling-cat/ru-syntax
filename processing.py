@@ -32,7 +32,11 @@ def process(ifname, ofname, app_root, mystem_path, malt_root, malt_name, model_n
     call(mystem_call_list)
     with open(mfname_o, 'r', encoding='utf-8') as tmp_file:
         text = tmp_file.read()
-        analyzed = json.loads(text.strip())
+        try:
+            analyzed = json.loads(text.strip())
+        except:
+            print(text.strip())
+            exit(1)
 
     # post-mystem correction
     comp_dict = posttok.get_comp_dict(comp_dict_path)
